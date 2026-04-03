@@ -1,7 +1,8 @@
 import csv
 
-def read_csv(csv_name):
-    
+
+def read_csv(csv_name):   
+
     books = set()
 
     try:
@@ -34,3 +35,21 @@ def read_csv(csv_name):
         return None
 
     return books
+
+def search_by_author(books, author):
+    results = []
+
+    for book in books:
+         if book[1].lower() == author.lower():
+            results.append(book)
+
+    return results
+
+def search_by_year(books, year):
+    results = []
+
+    for book in books:
+         if book[2] == year:
+            results.append(book)
+
+    return results
