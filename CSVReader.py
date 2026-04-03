@@ -11,18 +11,18 @@ def read_csv(csv_name):
             
             for row in reader:
 
-                title = row[0]
-                author = row[1]
-                year = row[2]
+                title = row[0].strip()
+                author = row[1].strip()
+                year = row[2].strip()
                 
-                if not author.strip():
+                if not author:
                     author = "Author Unknown"
                 
-                if not year.strip():
+                if not year:
                     year = 0
                 else:
                     try:
-                        year = int(year)
+                        year= int(year)
                         if year < 0:
                             year = 0
                     except:
@@ -41,15 +41,16 @@ def list_csv(books):
         print("No books to display.")
         return
 
+    print("\nTITLE - AUTHOR - PUBLICATION YEAR\n")
     for title, author, year in books:
-        print(f"{title}, {author}, {year}")
+        print(f"{title} - {author} - {year}")
 
 
 def search_by_author(books, author):
     results = []
 
     for book in books:
-         if book[1].lower().strip() == author.lower().strip():
+        if book[1].lower() == author.lower().strip():
             results.append(book)
 
     return results
@@ -58,7 +59,28 @@ def search_by_year(books, year):
     results = []
 
     for book in books:
-         if book[2].strip() == year.strip():
+        if book[2] == int(year.strip()):
             results.append(book)
 
     return results
+
+def group_books(books):
+    grouped = {}
+
+    for title, author, year in books:
+
+        if author == "Author Unknown":
+            key = f"Author Unknown - Publication year {year}"
+        else:
+            key = author
+
+        if key not in grouped:
+            grouped[key] = []
+
+        grouped[key].append((title, year))
+
+    for key in sorted(grouped):
+        print(f"\n{key}:")
+
+        for title, year in sorted(grouped[key]):
+            print(f"  - {title} - {year}")

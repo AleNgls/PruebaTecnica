@@ -1,4 +1,4 @@
-from CSVReader import read_csv, list_csv, search_by_author, search_by_year
+from CSVReader import read_csv, list_csv, search_by_author, search_by_year, group_books
 from DBConnection import save_books_to_db
 
 def menu():
@@ -28,6 +28,7 @@ def main():
                     print("Invalid file name. Try again.")
                 else:
                     print("Books processed succesfully.")
+                    input()
                     break
 
         elif option == "2":
@@ -36,12 +37,23 @@ def main():
             else:
                 save_books_to_db(books)
                 print("Books succesfully saved to the database.")
+                input()
 
         elif option == "3":
             if books is None:
                 print("-You must enter a CSV file name fist.-")
             else:
-                list_csv(books)
+                print("1. Show full list.")
+                print("2. Show list grouped by author.")
+                option2 = input("Choose an option: ")
+                if option2 == "1":
+                    list_csv(books)
+                    input()
+                elif option2 == "2":
+                    group_books(books)
+                    input()
+                else:
+                    print("Invalid option.")
 
         elif option == "4":
             if books is None:
@@ -50,6 +62,7 @@ def main():
                 author = input("Enter author name: ")
                 books_by_author = search_by_author(books, author)
                 list_csv(books_by_author)
+                input()
 
         elif option == "5":
             if books is None:
@@ -58,6 +71,7 @@ def main():
                 year = input("Enter publication year: ")
                 books_by_year = search_by_year(books, year)
                 list_csv(books_by_year)
+                input()
 
         elif option == "6":
             print("Closing...")
