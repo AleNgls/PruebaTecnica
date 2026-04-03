@@ -31,16 +31,25 @@ def read_csv(csv_name):
                 books.add((title, author, year))
 
     except FileNotFoundError:
-        print(f"Error: el archivo '{csv_name}' no existe")
+        print(f"Error: file named '{csv_name}' does not exist.")
         return None
 
     return books
+
+def list_csv(books):
+    if not books:
+        print("No books to display.")
+        return
+
+    for title, author, year in books:
+        print(f"{title}, {author}, {year}")
+
 
 def search_by_author(books, author):
     results = []
 
     for book in books:
-         if book[1].lower() == author.lower():
+         if book[1].lower().strip() == author.lower().strip():
             results.append(book)
 
     return results
@@ -49,7 +58,7 @@ def search_by_year(books, year):
     results = []
 
     for book in books:
-         if book[2] == year:
+         if book[2].strip() == year.strip():
             results.append(book)
 
     return results
