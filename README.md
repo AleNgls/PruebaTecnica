@@ -3,7 +3,8 @@
 -Ejecución-
 
 1. Clonar el repositorio o descargar el proyecto.
-2. Ejecutar el archivo principal:
+2. Posicionarse en /PruebaTecnica
+3. Ejecutar el archivo principal:
 
 python main.py
 
